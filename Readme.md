@@ -1,6 +1,6 @@
 # Bitstamp-CLI
 
-A CLI to check your Bitstap open orders via CLI, place a buy order, a sell order or cancel an existing one.
+A script to check your Bitstap open orders via CLI, place a buy order, a sell order or cancel an existing one.
 
 ### Configuration
 
