@@ -55,7 +55,7 @@ And finally cancel an order:
 
     ./bitstamp_cli cancel ORDER_ID
 
-You can check your order id from the `Open orders` output, an example is `#123123123`, you have to pass `123123123` without the `#` sign.
+You can check your order id from the `Open orders` output, an example is `#123123123`, you have to pass `123123123` without the `#` sign. Bare in mind the minimum order on Bitstamp is 5$.
 
 Enjoy,
 
