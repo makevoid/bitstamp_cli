@@ -3,9 +3,9 @@
 bundle="/usr/bin/env bundle"
 ruby="/usr/bin/env ruby"
 
-$bundle exec $ruby "bitstamp_cli.rb"
+$bundle exec $ruby "bitstamp_cli.rb" $*
 
-# simpler version without bundler: 
+# simpler version without bundler:
 #
 # #!/usr/bin/env ruby
 # require_relative 'bitstamp_cli'
