@@ -2,7 +2,7 @@ require_relative "lib/bitstamp_cli"
 
 # imports
 orders_show = @orders_show
-price = @price
+price_print = @price_print
 balance = @balance
 buy = @buy
 sell = @sell
@@ -18,7 +18,7 @@ LOCAL_CURR = "GBP"
 # ------------------------------
 
 # first print the price of BTC
-price.()
+price_print.()
 
 # then query the balance
 balance.()

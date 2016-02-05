@@ -43,11 +43,13 @@ The `./stamp` alias is also available, instead of `bitstamp_cli` you can use:
 
 Then, you can put a instant (market) `BUY` order:
 
-    ./bitstamp_cli buy 0.0001
+    ./bitstamp_cli buy 0.015
+
+This will put a BUY order for `0.015` BTC (at the moment ~5$ - @ ~380$/BTC)
 
 A `SELL` instant order:
 
-    ./bitstamp_cli sell 0.0001
+    ./bitstamp_cli sell 0.015
 
 And finally cancel an order:
 

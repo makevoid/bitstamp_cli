@@ -7,16 +7,25 @@ orders = -> {
 }
 
 cancel = -> (order_id)  {
+  return unless order_id
   order = Bitstamp::Order.new id: order_id
   order.cancel!
 }
 
 CACHE = {}
 
+
+ticker = -> {
+  CACHE[:ticker] ? CACHE[:ticker] : Bitstamp.ticker
+}
+
 price = -> (from = :bid) {
-  tick = CACHE[:ticker] ? CACHE[:ticker] : Bitstamp.ticker
+  ticker.().send from
+}
+
+price_print = -> {
+  tick = ticker.()
   puts "\nPrice: #{tick.last} (low/high: #{tick.low}<->#{tick.high})\n\n"
-  tick.send from
 }
 
 balance = -> {
@@ -25,12 +34,11 @@ balance = -> {
 }
 
 buy = -> (amount) {
-  result = Bitstamp.orders.buy amount: amount, price: price.(:bid)
-  p result
+  Bitstamp.orders.buy amount: amount, price: price.(:ask)
 }
 
 sell = -> (amount) {
-  Bitstamp.orders.sell amount: amount, price: price.(:ask)
+  Bitstamp.orders.sell amount: amount, price: price.(:bid)
 }
 
 get_action = -> {
@@ -48,7 +56,7 @@ display_order = -> (order) {
 
 orders_show = -> {
   ords = orders.()
-  puts "Open orders: \n#{"-"*35}\n#{ords.map(&display_order).join("\n")} \n"
+  puts "Open orders: \n#{"-"*35}\n#{ords.map(&display_order).join("\n")}\n\n"
 }
 
 def wrap(function)
@@ -62,9 +70,9 @@ process_action = -> (action) {
   name     = action[:name]
   amount   = action[:value]
   order_id = action[:value]
-  puts "\nExecuting: #{name}(#{amount})\n\n"
+  puts "Executing: #{name}(#{amount})\n"
 
-  case name
+  output = case name
   when "buy"
     buy.(amount)
   when "sell"
@@ -72,8 +80,19 @@ process_action = -> (action) {
   when "cancel"
     cancel.(order_id)
   end
+  puts "-"*35
+  if output.is_a? Bitstamp::Order
+    if output.error
+      puts "Error: #{output.error["__all__"].join(", ")}"
+    else
+      p output
+    end
+  else
+    puts output
+  end
+  puts "-"*35
 
-  puts "done!"
+  puts "done!\n\n"
   orders_show.()
 }
 
@@ -81,7 +100,7 @@ buy    = wrap buy
 sell   = wrap sell
 cancel = wrap cancel
 
-@price = price
+@price_print = price_print
 @balance = balance
 @orders_show = orders_show
 @buy = buy
