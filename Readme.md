@@ -4,13 +4,19 @@ A script to check your Bitstap open orders via CLI, place a buy order, a sell or
 
 ### Configuration
 
+Download the repo and enter the `bitstamp_cli` directory.
+
 Copy the default configurations:
 
     cp config/bitstamp.default.json config/bitstamp.json
 
 ### Setup
 
-    gem i bitstamp
+From the repo dir:
+
+    gem i bundler
+
+    bundle
 
 ### Usage:
 
@@ -18,28 +24,31 @@ Whithout arguments, it returns the price, your balance (USD and BTC), and your o
 
     ./bitstamp_cli
 
-
 Example output:
 
     Price: 390.00 (low/high: 380.00<->399.00)
-    
+
     Available:
     $ 50.00 - ~0.2 BTC
-    
-    Open orders: 
+
+    Open orders:
     -----------------------------------
     #123123123	- 0.15Ƀ @ 350.00$
     #123123124	- 0.25Ƀ @ 320.00$
     ...
 
-You can put a instant (market) `BUY` order:
+The `./stamp` alias is also available, instead of `bitstamp_cli` you can use:
+
+    ./stamp
+
+Then, you can put a instant (market) `BUY` order:
 
     ./bitstamp_cli buy 0.0001
-    
+
 A `SELL` instant order:
-    
+
     ./bitstamp_cli sell 0.0001
-    
+
 And finally cancel an order:
 
     ./bitstamp_cli cancel ORDER_ID

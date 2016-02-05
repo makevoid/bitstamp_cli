@@ -15,8 +15,13 @@ CACHE = {}
 
 price = -> (from = :bid) {
   tick = CACHE[:ticker] ? CACHE[:ticker] : Bitstamp.ticker
-  puts "\nPrice is #{tick.last} (low/high: #{tick.low}<->#{tick.high})\n\n"
+  puts "\nPrice: #{tick.last} (low/high: #{tick.low}<->#{tick.high})\n\n"
   tick.send from
+}
+
+balance = -> {
+  bal = Bitstamp.balance
+  puts "Available:\n$ #{bal["usd_available"]} - ~#{bal["btc_available"].to_f.round(4)} BTC\n\n"
 }
 
 buy = -> (amount) {
@@ -43,7 +48,7 @@ display_order = -> (order) {
 
 orders_show = -> {
   ords = orders.()
-  puts "Your Open orders: \n#{ords.map(&display_order).join("\n")} \n"
+  puts "Open orders: \n#{"-"*35}\n#{ords.map(&display_order).join("\n")} \n"
 }
 
 def wrap(function)
@@ -76,10 +81,11 @@ buy    = wrap buy
 sell   = wrap sell
 cancel = wrap cancel
 
+@price = price
+@balance = balance
 @orders_show = orders_show
 @buy = buy
 @sell = sell
 @cancel = cancel
-@price = price
 @get_action = get_action
 @process_action = process_action
