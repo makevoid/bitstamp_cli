@@ -12,7 +12,9 @@ Copy the default configurations:
 
     gem i bitstamp
 
-### Execute
+### Usage:
+
+Whithout arguments, it returns the price, your balance (USD and BTC), and your open orders.
 
     ./bitstamp_cli
 
@@ -29,3 +31,21 @@ Example output:
     #123123123	- 0.15Ƀ @ 350.00$
     #123123124	- 0.25Ƀ @ 320.00$
     ...
+
+You can put a instant (market) `BUY` order:
+
+    ./bitstamp_cli buy 0.0001
+    
+A `SELL` instant order:
+    
+    ./bitstamp_cli sell 0.0001
+    
+And finally cancel an order:
+
+    ./bitstamp_cli cancel ORDER_ID
+
+You can check your order id from the `Open orders` output, an example is `#123123123`, you have to pass `123123123` without the `#` sign.
+
+Enjoy,
+
+[@makevoid](https://twitter.com/makevoid)
