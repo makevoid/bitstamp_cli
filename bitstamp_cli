@@ -2,8 +2,10 @@
 
 bundle="/usr/bin/env bundle"
 ruby="/usr/bin/env ruby"
+dir=$(dirname $0)
 
-$bundle exec $ruby "bitstamp_cli.rb" $*
+
+BUNDLE_GEMFILE=$dir/Gemfile $bundle exec $ruby "$dir/bitstamp_cli.rb" $*
 
 # simpler version without bundler:
 #
